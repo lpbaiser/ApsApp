@@ -1,9 +1,12 @@
 package Cenario;
 
+import java.util.ArrayList;
+
+import javax.swing.JPanel;
+
 public interface Cenario {
 
-	public boolean geraCenario(int dificulade);
-	public int[] random(int tamanho);
-	public int buscaReptido(int numero, int[] numeros);
+	public JPanel geraCenario(ArrayList<Integer> numeros);
+	public ArrayList<Integer> random(int tamanho);
 	
 }
