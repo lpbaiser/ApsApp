@@ -1,5 +1,7 @@
 package Cenario;
 
-public class Cenario {
+public interface Cenario {
 
+	public boolean geraCenario(int dificulade);
+	
 }
