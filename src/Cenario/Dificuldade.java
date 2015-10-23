@@ -14,12 +14,13 @@ public class Dificuldade implements Cenario {
 	@Override
 	public JPanel geraCenario(ArrayList<Integer>numeros) {
 		JPanel panel = new JPanel();
-		int colunas = 0;
+		int colunas = 4;
 		GridLayout layout = new GridLayout(0, colunas);
 		panel.setLayout(layout);
 		for (Integer i : numeros) {
 			JButton b = new JButton();
-			b.setName(i.toString());
+			b.addActionListener(panel);
+			b.setActionCommand(i.toString());
 			panel.add(b);
 		}
 		return panel;
