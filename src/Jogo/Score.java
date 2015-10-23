@@ -1,10 +1,14 @@
 package Jogo;
 
+import java.util.ArrayList;
+
 public class Score {
 
 	private int tempo;
 	private int numTentativas;
-	private int getTempo() {
+	private int acertoConsecutivo;
+	
+	public int getTempo() {
 		return tempo;
 	}
 	public void setTempo(int tempo) {
@@ -17,9 +21,26 @@ public class Score {
 		this.numTentativas = numTentativas;
 	}
 	
+	/*
+	 * Calcula o score de um jogo
+	 */
 	public float getScore(){
-		return (this.tempo/this.numTentativas);
+		return (this.tempo/this.numTentativas)*(this.acertoConsecutivo/100);
 	}
+	
+	public int getAcertoConsecutivo() {
+		return acertoConsecutivo;
+	}
+	public void setAcertoConsecutivo(int acertoConsecutivo) {
+		this.acertoConsecutivo = acertoConsecutivo;
+	}
+	
+	public ArrayList<String> listaScore(){
+		ArrayList<String> ranking = new ArrayList<>();
+		//implementar metodo no percistencia
+		return ranking;
+	}
+	
 	
 	
 }
