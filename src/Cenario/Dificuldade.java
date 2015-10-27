@@ -1,32 +1,48 @@
 package Cenario;
 
-import java.awt.Container;
-import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
 
-public class Dificuldade implements Cenario {
+public class Dificuldade{
+	
+	JButton[][] vBtn;
+	int nLinhas;
+	int nColunas;
 
-	@Override
-	public JPanel geraCenario(ArrayList<Integer>numeros) {
-		JPanel panel = new JPanel();
-		int colunas = 4;
-		GridLayout layout = new GridLayout(0, colunas);
-		panel.setLayout(layout);
-		for (Integer i : numeros) {
-			JButton b = new JButton();
-			b.addActionListener(panel);
-			b.setActionCommand(i.toString());
-			panel.add(b);
+	ActionListener actionL = new ActionListener() {
+		
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			
+			String nome = e.getActionCommand();
+			System.out.println(nome);
+			
 		}
-		return panel;
+	};
+	
+	public JButton[][] geraVetorJButton(ArrayList<Integer>numeros) {
+		vBtn = new JButton[nLinhas][nColunas];
+		
+		
+		
+		for (int i = 0; i < (nLinhas); i++) {
+			for (int j = 0; j < nColunas; j++) {
+				JButton b = new JButton();
+				b.addActionListener(actionL);
+				b.setActionCommand(String.valueOf(i));
+				vBtn[i][j] = b;
+			}
+			
+		}	
+		
+		return vBtn;
 	}
 
-	@Override
+	
 	public ArrayList<Integer> random(int tamanho) {
 		ArrayList<Integer> numeros = new ArrayList<>();
 		for (int i = 0, j = 0; i < (tamanho - 1); i += 2) {

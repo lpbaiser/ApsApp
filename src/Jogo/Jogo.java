@@ -1,12 +1,12 @@
 package Jogo;
 
-import Cenario.Cenario;
+import Cenario.Dificuldade;
+
 
 public class Jogo {
 
 	private Player player;
-	private Cenario cenario;
-	private int dificuldade;
+	private Dificuldade dificuldade;
 	
 	private Player getPlayer() {
 		return player;
@@ -14,17 +14,12 @@ public class Jogo {
 	private void setPlayer(Player player) {
 		this.player = player;
 	}
-	private Cenario getCenario() {
-		return cenario;
-	}
-	private void setCenario(Cenario cenario) {
-		this.cenario = cenario;
-	}
-	private int getDificuldade() {
+	public Dificuldade getDificuldade() {
 		return dificuldade;
 	}
-	private void setDificuldade(int dificuldade) {
+	public void setDificuldade(Dificuldade dificuldade) {
 		this.dificuldade = dificuldade;
 	}
+	
 	
 }
