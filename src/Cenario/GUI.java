@@ -26,7 +26,7 @@ public class GUI extends JFrame implements ActionListener {
 	public GUI() {
 		setTitle("JOGO DA MEMORIA");
 		setSize(600, 600);
-		
+		cbDificuldade.addItem(item);
 		// cp = getContentPane();
 
 		numeros = d.random(12);
@@ -61,8 +61,7 @@ public class GUI extends JFrame implements ActionListener {
 
 	public JPanel geraCenario(JButton[][] vBtn, int nLinha, int nColuna) {
 		JPanel panel = new JPanel();
-		int colunas = 4;
-		GridLayout layout = new GridLayout(0, colunas);
+		GridLayout layout = new GridLayout(0, nColuna);
 		panel.setLayout(layout);
 		for (int i = 0; i < nLinha; i++) {
 			for (int j = 0; j < nColuna; j++) {
