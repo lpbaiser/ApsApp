@@ -1,5 +1,12 @@
 package Cenario;
 
+/**
+*
+* @author Emanuel Mazzer & Leonardo Baiser 
+* @version 1.0
+* @since 19/10/2015
+*/
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;

@@ -1,5 +1,12 @@
 package Cenario;
 
+/**
+*
+* @author Emanuel Mazzer & Leonardo Baiser 
+* @version 1.0
+* @since 19/10/2015
+*/
+
 import java.awt.Container;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
