@@ -2,7 +2,7 @@ package Jogo;
 
 import java.util.ArrayList;
 
-import Cenario.Dificuldade;
+import Cenario.Cenario;
 import Cenario.GUI;
 
 public class Main {

@@ -14,8 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-public class GUI extends JFrame implements ActionListener {
-	Dificuldade d = new Dificuldade();
+public class GUI extends JFrame {
+	Cenario d = new Cenario();
 	JPanel j = new JPanel();
 	ArrayList<Integer> numeros;
 	Container cp = new Container();
@@ -84,16 +84,16 @@ public class GUI extends JFrame implements ActionListener {
 
 	
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		
-//		al.actionPerformed(e);
-		
-		System.out.println("ACERTO MISERAVI");
-		String nome = e.getActionCommand();
-		System.out.println(nome);
-		
-		
-	}
+//	@Override
+//	public void actionPerformed(ActionEvent e) {
+//		
+////		al.actionPerformed(e);
+//		
+//		System.out.println("ACERTO MISERAVI");
+//		String nome = e.getActionCommand();
+//		System.out.println(nome);
+//		
+//		
+//	}
 
 }

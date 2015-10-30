@@ -5,21 +5,66 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
-public class Dificuldade {
+import Jogo.Carta;
+
+public class Cenario {
 
 	JButton[][] vBtn;
 	int nLinhas;
 	int nColunas;
+	private int qtdeClique = 0;
+	private Carta cartas[] = new Carta[2];
+	
 
 	ActionListener actionL = new ActionListener() {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
+			if (qtdeClique == 2) {
+				if (cartas[0].getNumCarta() != cartas[1].getNumCarta()){
+					//retornas as cartas no estado inicial
+					ImageIcon def = new ImageIcon(getClass().getResource("/icones/default.png"));
+					vBtn[cartas[0].getLinha()][cartas[0].getColuna()].setIcon(def);
+					vBtn[cartas[1].getLinha()][cartas[1].getColuna()].setIcon(def);
+					System.out.println("Errou");
+				}else{
+					//contabiliza o ponto de acerto
+					System.out.println("Acertou");
+				}
+				qtdeClique = 0;
+			}
+			
+			String action = e.getActionCommand();
+			String aux[] = action.split("-");
+			int linha = Integer.parseInt(aux[1]);
+			int coluna = Integer.parseInt(aux[2]);
 
-			String nome = e.getActionCommand();
-			System.out.println(nome);
+			
+			
+			Carta c = new Carta();
+			c.setColuna(coluna);
+			c.setLinha(linha);
+			c.setNumCarta(aux[0]);
+			cartas[qtdeClique] = c;
+			qtdeClique++;
+			
+			
+			
+			
+
+			
+
+			System.out.println("icones/" + aux[0] + ".png");
+			ImageIcon icone = new ImageIcon(getClass().getResource(
+					"/icones/" + aux[0] + ".png"));
+
+			
+			vBtn[linha][coluna].setIcon(icone);
+			System.out.println("pos: " + aux[0] + "linha: " + linha
+					+ "coluna: " + coluna);
 
 		}
 	};
@@ -31,8 +76,9 @@ public class Dificuldade {
 			for (int j = 0; j < this.nColunas; j++) {
 				JButton b = new JButton();
 				b.addActionListener(this.actionL);
-				b.setActionCommand(String.valueOf(numeros.get(aux)));
-				b.setEnabled(false);
+				b.setActionCommand(String.valueOf(numeros.get(aux) + "-" + i
+						+ "-" + j));
+				// b.setEnabled(false);
 				vBtn[i][j] = b;
 				aux++;
 			}
