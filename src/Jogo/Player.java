@@ -17,5 +17,8 @@ public class Player {
 	public void setScore(Score score) {
 		this.score = score;
 	}
+	public void setPontos(float pontos){
+		this.score.setScore(pontos);
+	}
 	
 }
