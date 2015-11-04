@@ -1,12 +1,10 @@
 package Jogo;
 
+
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class Persistencia {
@@ -15,8 +13,8 @@ public class Persistencia {
 		File file = new File("ranking.txt");
 
 		try {
-			FileWriter writer = new FileWriter(file, true);
-			writer.write(jogador.getNome() + ";"+jogador.getScore()+";"+jogador.getScore().getTempo()+";"+jogador.getScore().getNumTentativas()+";" + jogador.getScore().getAcertoConsecutivo());
+			FileWriter writer = new FileWriter(file,true);
+			writer.write(jogador.getNome() + ";"+jogador.getScore().getPontos()+";"+jogador.getScore().getTempo()+";"+jogador.getScore().getNumTentativas()+";" + jogador.getScore().getAcertoConsecutivo());
 			writer.write("\n");
 			writer.close();
 		} catch (Exception e) {
@@ -25,10 +23,8 @@ public class Persistencia {
 
 	}
 
-	public ArrayList<Player> ranking() {
-		String arquivo = new String();
-		String[] jogadores;
-		String[] jogadores2;
+	public ArrayList<Player> lista() {
+		String arquivo[];
 		ArrayList<Player> players= new ArrayList<Player>();
 		
 		try {
@@ -36,24 +32,25 @@ public class Persistencia {
 			BufferedReader fi = new BufferedReader(file);
 			String linha = fi.readLine();
 			while (linha != null) {
-				arquivo += linha = fi.readLine();
-
-			}
-			jogadores = arquivo.split(";");
-			System.out.println("lengh" +jogadores[0]);
-			for (int i = 0; i < jogadores.length-1; i++) {
-				jogadores2=jogadores[i].split(";");
 				Player novo = new Player();
-				novo.setNome(jogadores2[0].trim());
-				//novo.setPontos(Float.parseFloat(jogadores2[1]));
+				Score s = new Score();
+				arquivo = linha.split(";");
+				novo.setNome(arquivo[0]);
+				s.setPontos(Float.parseFloat(arquivo[1]));
+				s.setTempo(Integer.parseInt(arquivo[2]));
+				s.setNumTentativas(Integer.parseInt(arquivo[3]));
+				s.setAcertoConsecutivo(Integer.parseInt(arquivo[4]));
+				novo.setScore(s);
 				players.add(novo);
-			}
+				
+				linha= fi.readLine();
 
+			}
+			fi.close();
+			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(players.get(0).getNome());
 		return players;
 
 	}

@@ -1,5 +1,12 @@
 package Jogo;
 
+/**
+*
+* @author Emanuel Mazzer & Leonardo Baiser 
+* @version 1.0
+* @since 19/10/2015
+*/
+
 import java.util.ArrayList;
 
 public class Score {
@@ -13,9 +20,9 @@ public class Score {
 		return pontos;
 	}
 
-//	public void setPontos(float pontos) {
-//		this.pontos = pontos;
-//	}
+	public void setPontos(float pontos) {
+		this.pontos = pontos;
+	}
 
 	public int getTempo() {
 		return tempo;
@@ -36,9 +43,8 @@ public class Score {
 	/*
 	 * Calcula o score de um jogo
 	 */
-	public float getScore() {
-		pontos = (this.tempo / this.numTentativas)
-				* (this.acertoConsecutivo / 100);
+	public float calcScore() {
+		pontos = (this.tempo / this.numTentativas)* (this.acertoConsecutivo);
 		return pontos;
 	}
 	
