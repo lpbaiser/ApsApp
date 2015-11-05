@@ -23,15 +23,17 @@ import javax.swing.WindowConstants;
 
 import Jogo.Dificuldade;
 import Jogo.Player;
+import java.awt.Color;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class GUI extends JFrame {
+public class GUI extends JFrame implements Listener{
 
     Container cp = new Container();
     JPanel painel = new JPanel();
     PainelCartas painelCartas;
+    PainelInicial painelInicial;
     JMenuBar menuBar = new JMenuBar();
     JMenu jogoMenu = new JMenu("Jogo");
     JMenuItem novoJogo = new JMenuItem("Novo Jogo");
@@ -48,7 +50,6 @@ public class GUI extends JFrame {
 
     public GUI() {
         setTitle("JOGO DA MEMORIA");
-        setSize(1024, 768);
         setJMenuBar(menuBar);
         menuBar.add(jogoMenu);
         jogoMenu.add(novoJogo);
@@ -114,8 +115,16 @@ public class GUI extends JFrame {
 
         painel.add(new JLabel("Escolha uma dificuldade: "));
         painel.add(cbDificuldade);
+        painel.setBackground(Color.lightGray);
+        
+//        painelInicial = new PainelInicial();
+//        cp.add(painelInicial, BorderLayout.CENTER);
+        
+        
         cp.add(painel, BorderLayout.NORTH);
         cp.add(painelCartas, BorderLayout.CENTER);
+        
+        
         this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 
         setVisible(true);
@@ -202,4 +211,21 @@ public class GUI extends JFrame {
 //        }
 //
 //    }
+
+    @Override
+    public void dadoTransmitido(Object dado, String tipo) {
+        
+        String nick = null;
+        Player p = null;
+        if (tipo.equals("nick")){
+            nick = String.valueOf(dado);
+        }else if (tipo.equals("player")){
+            p = (Player) dado;
+        }
+        
+        p.setNome(nick);
+        
+        
+        
+    }
 }
