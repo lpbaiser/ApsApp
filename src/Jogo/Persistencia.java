@@ -24,12 +24,12 @@ public class Persistencia {
 
     }
 
-    public ArrayList<Jogo>[] lista() {
-        ArrayList<Jogo> retorno[]=null;
+    public ArrayList<ArrayList<Jogo>> lista() {
+        ArrayList<ArrayList<Jogo>> retorno = new ArrayList<>();
         String arquivo[];
-        ArrayList<Jogo> jogo12 = new ArrayList<Jogo>();
-        ArrayList<Jogo> jogo24 = new ArrayList<Jogo>();
-        ArrayList<Jogo> jogo36 = new ArrayList<Jogo>();
+        ArrayList<Jogo> jogo12 = new ArrayList<>();
+        ArrayList<Jogo> jogo24 = new ArrayList<>();
+        ArrayList<Jogo> jogo36 = new ArrayList<>();
 
         try {
             FileReader file = new FileReader("ranking.txt");
@@ -67,10 +67,10 @@ public class Persistencia {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        retorno[1]=jogo12;
-        retorno[2]=jogo24;
-        retorno[3]=jogo36;
-        
+        retorno.add(jogo12);
+        retorno.add(jogo24);
+        retorno.add(jogo36);
+
         return retorno;
 
     }

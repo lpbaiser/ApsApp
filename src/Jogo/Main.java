@@ -1,6 +1,6 @@
 package Jogo;
 
-import Cenario.GUI;
+import java.util.ArrayList;
 
 /**
  *
@@ -29,9 +29,5 @@ public class Main {
         //		s.setTempo(10);
         ////		per.gravaPlayer(p);
         //	//	Jogo j = new Jogo();
-
-        Jogo j = new Jogo();
-        //j.ranking();
-        //		
     }
 }

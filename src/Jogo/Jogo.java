@@ -34,7 +34,7 @@ public class Jogo {
     public Jogo() {
 	
 
-	gui = new GUI();
+	//gui = new GUI();
 
 	// cenario = new Cenario();
     }
@@ -79,16 +79,16 @@ public class Jogo {
         this.vBtn = vBtn;
     }
     
-    public ArrayList<Jogo>[] ranking() {
+    public ArrayList<ArrayList<Jogo>> ranking() {
         Persistencia p = new Persistencia();
-        ArrayList<Jogo> jog[] = p.lista();
-        ArrayList<Jogo> jogo12 = ordena(jog[1]);
-        ArrayList<Jogo> jogo24 = ordena(jog[2]);
-        ArrayList<Jogo> jogo36 = ordena(jog[3]);
-        ArrayList<Jogo> rank[] = null;
-        rank[1] = jogo12;
-        rank[2] = jogo24;
-        rank[3] = jogo36;
+        ArrayList<ArrayList<Jogo>> jog = p.lista();
+        ArrayList<Jogo> jogo12 = ordena(jog.get(0));
+        ArrayList<Jogo> jogo24 = ordena(jog.get(1));
+        ArrayList<Jogo> jogo36 = ordena(jog.get(2));
+        ArrayList<ArrayList<Jogo>> rank = new ArrayList<>();
+        rank.add(jogo12);
+        rank.add(jogo24);
+        rank.add(jogo36);
         return rank;
 
     }

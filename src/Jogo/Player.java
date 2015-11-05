@@ -35,10 +35,10 @@ public class Player {
 
     public ArrayList<Jogo>[] ranking() {
         Persistencia p = new Persistencia();
-        ArrayList<Jogo> jog[] = p.lista();
-        ArrayList<Jogo> jogo12 = ordena(jog[1]);
-        ArrayList<Jogo> jogo24 = ordena(jog[2]);
-        ArrayList<Jogo> jogo36 = ordena(jog[3]);
+        ArrayList<ArrayList<Jogo>> jog = p.lista();
+        ArrayList<Jogo> jogo12 = ordena(jog.get(0));
+        ArrayList<Jogo> jogo24 = ordena(jog.get(1));
+        ArrayList<Jogo> jogo36 = ordena(jog.get(2));
         ArrayList<Jogo> rank[] = null;
         rank[1] = jogo12;
         rank[2] = jogo24;
