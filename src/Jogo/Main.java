@@ -1,23 +1,20 @@
 package Jogo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import Cenario.GUI;
 
 /**
-*
-* @author Emanuel Mazzer & Leonardo Baiser 
-* @version 1.0
-* @since 19/10/2015
-*/
-
-
+ *
+ * @author Emanuel Mazzer & Leonardo Baiser
+ * @version 1.0
+ * @since 19/10/2015
+ */
 public class Main {
 
-	public static void main(String[] args) {
+    public static void main(String[] args) {
 
-		//GUI g = new GUI();
-		Player p = new Player();
-		Persistencia per= new Persistencia();
+        GUI g = new GUI();
+        Player p = new Player();
+        Persistencia per = new Persistencia();
 //		Score s=new Score();
 //		s.setAcertoConsecutivo(5);
 //		s.setNumTentativas(40);
@@ -33,17 +30,10 @@ public class Main {
 //		s.setTempo(10);
 ////		per.gravaPlayer(p);
 //	//	Jogo j = new Jogo();
+        
+       //Jogo j = new Jogo();
+        //j.ranking();
 //		
-		ArrayList<Player> pl = new ArrayList<>();
-		pl=p.ranking();
-		
-		for (Player player : pl) {
-			System.out.println(player.getNome());
-			
-		}
-		
-		
-		
-	}
+    }
 
 }
