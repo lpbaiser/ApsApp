@@ -1,6 +1,7 @@
 package Jogo;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -45,15 +46,17 @@ public class Dificuldade {
 	    for (int j = 0; j < this.nColunas; j++) {
 		JButton b = new JButton();
 		ImageIcon def = new ImageIcon(getClass().getResource("/icones/fundo.png"));
-                b.setSize(10, 10);
+//		b.setIcon(def);
+//                b.setBackground(Color.red);
+//                b.setPreferredSize(new Dimension(2, 2));
 //		b.addActionListener(this.actionL);
 //                b.setBackground(Color.red);
-                b.setBorderPainted(false);
-//                b.setBounds(0, 0, 2, 2);
+//                b.setBorderPainted(false);
+                
+//                b.setBounds(0, 0, 3, 2);
                 
 		b.setActionCommand(String.valueOf(numeros.get(aux) + "-" + i+ "-" + j));
                 
-		b.setIcon(def);
 		vBtn[i][j] = b;
 		aux++;
 	    }

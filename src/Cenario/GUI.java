@@ -21,16 +21,23 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import Jogo.Carta;
 import Jogo.Dificuldade;
 import Jogo.Player;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class GUI extends JFrame {
 
     Container cp = new Container();
     JPanel painel = new JPanel();
     PainelCartas painelCartas;
-    
+    JMenuBar menuBar = new JMenuBar();
+    JMenu jogoMenu = new JMenu("Jogo");
+    JMenuItem novoJogo = new JMenuItem("Novo Jogo");
+    JMenuItem viewRanking = new JMenuItem("Ranking");
+
+
 
     private Player player;
     private Dificuldade dificuldade;
@@ -39,10 +46,14 @@ public class GUI extends JFrame {
     JButton[][] vBtn;
     JComboBox cbDificuldade = new JComboBox();
 
-
     public GUI() {
         setTitle("JOGO DA MEMORIA");
         setSize(1024, 768);
+        setJMenuBar(menuBar);
+        menuBar.add(jogoMenu);
+        jogoMenu.add(novoJogo);
+        jogoMenu.add(viewRanking);
+        
 
         cbDificuldade.addItem("12 Peças");
         cbDificuldade.addItem("24 Peças");
@@ -55,13 +66,12 @@ public class GUI extends JFrame {
 
         dificuldade = new Dificuldade(12);
         painelCartas = new PainelCartas(dificuldade);
-        
-        
+
         cbDificuldade.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                    cp.remove(painelCartas);
+                cp.remove(painelCartas);
                 if (cbDificuldade.getSelectedIndex() == 0) {
                     dificuldade = new Dificuldade(12);
                     painelCartas = new PainelCartas(dificuldade);
@@ -73,16 +83,40 @@ public class GUI extends JFrame {
                     painelCartas = new PainelCartas(dificuldade);
 
                 }
-                    cp.add(painelCartas, BorderLayout.CENTER);
-                    cp.validate(); //Atualiza o Painel
+                cp.add(painelCartas, BorderLayout.CENTER);
+                cp.validate(); //Atualiza o Painel
 
             }
         });
+        
+        viewRanking.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                PainelListaRanking painelRanking = new PainelListaRanking();
+                cp.add(painelRanking, BorderLayout.EAST);
+                cp.validate();
+                
+            }
+        });
+        
+        novoJogo.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                cp.remove(painelCartas);
+                painelCartas = new PainelCartas(dificuldade);
+                cp.add(painelCartas, BorderLayout.CENTER);
+                cp.validate(); //Atualiza o Painel
+            }
+        });
+
 
         painel.add(new JLabel("Escolha uma dificuldade: "));
         painel.add(cbDificuldade);
         cp.add(painel, BorderLayout.NORTH);
         cp.add(painelCartas, BorderLayout.CENTER);
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 
         setVisible(true);
         setLocationRelativeTo(null);
@@ -92,7 +126,8 @@ public class GUI extends JFrame {
                 System.exit(0);
             }
         });
-
+        
+        
     }
 
 //    public JPanel geraCenario(JButton[][] vBtn, int nLinha, int nColuna) {
@@ -167,5 +202,4 @@ public class GUI extends JFrame {
 //        }
 //
 //    }
-
 }
