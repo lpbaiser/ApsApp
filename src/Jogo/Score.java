@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 public class Score {
 
-	private int tempo;
-	private int numTentativas;
-	private int acertoConsecutivo;
-	private float pontos;
+	private int tempo = 0;
+	private int numTentativas = 0;
+	private int acertoConsecutivo = 0;
+	private float pontos = 0;
 
 	public float getPontos() {
 		return pontos;
@@ -59,11 +59,20 @@ public class Score {
 	public void setAcertoConsecutivo(int acertoConsecutivo) {
 		this.acertoConsecutivo = acertoConsecutivo;
 	}
+        
+        public void addNumTentativas(){
+            this.numTentativas ++;
+        }
+        
+        public void addAcertoConsecutivo(){
+            this.acertoConsecutivo++;
+        }
 
 	public ArrayList<String> listaScore() {
 		ArrayList<String> ranking = new ArrayList<>();
 		// implementar metodo no percistencia
 		return ranking;
 	}
-
+        
+       
 }

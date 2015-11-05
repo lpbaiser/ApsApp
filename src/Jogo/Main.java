@@ -1,7 +1,6 @@
 package Jogo;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import Cenario.GUI;
 
 /**
 *
@@ -15,9 +14,9 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		//GUI g = new GUI();
+		GUI g = new GUI();
 		Player p = new Player();
-		Persistencia per= new Persistencia();
+//		Persistencia per= new Persistencia();
 //		Score s=new Score();
 //		s.setAcertoConsecutivo(5);
 //		s.setNumTentativas(40);
@@ -34,13 +33,13 @@ public class Main {
 ////		per.gravaPlayer(p);
 //	//	Jogo j = new Jogo();
 //		
-		ArrayList<Player> pl = new ArrayList<>();
-		pl=p.ranking();
-		
-		for (Player player : pl) {
-			System.out.println(player.getNome());
-			
-		}
+//		ArrayList<Player> pl = new ArrayList<>();
+//		pl=p.ranking();
+//		
+//		for (Player player : pl) {
+//			System.out.println(player.getNome());
+//			
+//		}
 		
 		
 		
