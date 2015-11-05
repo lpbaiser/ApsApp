@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 /**
  *
  * @author Leonardo Baiser <lpbaiser@gmail.com>
- * @since
+ * @since 04/11/2015
  */
 public class PainelCartas extends JPanel implements ActionListener {
 
@@ -35,6 +35,8 @@ public class PainelCartas extends JPanel implements ActionListener {
     private int acertosConsecutivos = 0;
     private long start;
     private long finish;
+    
+    Listener listener = null;
 
     public PainelCartas(Dificuldade d) {
         this.d = d;
@@ -118,8 +120,12 @@ public class PainelCartas extends JPanel implements ActionListener {
             Persistencia persist = new Persistencia();
             persist.gravaPlayer(p);
             JOptionPane.showMessageDialog(this, "Fim de jogo! \n sua pontuação é: " + pontuacao);
+            listener.dadoTransmitido(p, "player");//passar o Player
+            
         }
 
     }
+
+   
 
 }
