@@ -117,8 +117,7 @@ public class PainelCartas extends JPanel implements ActionListener {
             s.setPontos(pontuacao);
             p.setScore(s);
             System.out.println("Score: Tenta " + s.getNumTentativas() + " N Acerto" + s.getAcertoConsecutivo() + " Pontos: " + s.getPontos() + " Tempo: " + s.getTempo());
-            Persistencia persist = new Persistencia();
-            persist.gravaPlayer(p);
+            
             JOptionPane.showMessageDialog(this, "Fim de jogo! \n sua pontuação é: " + pontuacao);
             listener.dadoTransmitido(p, "player");//passar o Player
             

@@ -17,7 +17,7 @@ import javax.swing.JTextField;
  * @author Leonardo Baiser <lpbaiser@gmail.com>
  * @since 05/11/2015
  */
-public class PainelInicial extends JPanel {
+public class PainelInicial extends JPanel{
 
     JTextField txtNick = new JTextField(10);
     JButton btnOK = new JButton("OK");
@@ -27,12 +27,16 @@ public class PainelInicial extends JPanel {
 
     public PainelInicial() {
         setSize(200, 100);
-        setBackground(Color.BLUE);
+        setBackground(Color.lightGray);
 
         layout.setHorizontalGroup(layout.createSequentialGroup()
                 .addComponent(new JLabel("Nick: "))
                 .addComponent(txtNick)
+                .addComponent(btnOK)
+                
         );
+        
+        
         
         btnOK.addActionListener(new ActionListener() {
 
