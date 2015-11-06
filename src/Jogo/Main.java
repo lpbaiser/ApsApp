@@ -29,7 +29,9 @@ public class Main {
         //		s.setTempo(10);
         ////		per.gravaPlayer(p);
         //	//	Jogo j = new Jogo();
-        GUI2 g = new GUI2();
+     GUI2 g = new GUI2();
 //        g.setVisible(true);
+
+
     }
 }
