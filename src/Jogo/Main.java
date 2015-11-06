@@ -1,6 +1,6 @@
 package Jogo;
 
-import java.util.ArrayList;
+import Cenario.GUI;
 
 /**
  *
@@ -30,7 +30,7 @@ public class Main {
         ////		per.gravaPlayer(p);
         //	//	Jogo j = new Jogo();
 
-       Som s = new Som();
-       s.music("Acerto");
+       
+        GUI g= new GUI();
     }
 }
