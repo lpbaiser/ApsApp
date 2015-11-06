@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
 import Jogo.Dificuldade;
+import Jogo.Jogo;
 import Jogo.Persistencia;
 import Jogo.Player;
 import java.awt.Color;
@@ -30,7 +31,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 
-public class GUI extends JFrame implements Listener {
+public class GUI extends JFrame {
 
     Container cp = new Container();
     JPanel painel = new JPanel();
@@ -40,6 +41,8 @@ public class GUI extends JFrame implements Listener {
     JMenu jogoMenu = new JMenu("Jogo");
     JMenuItem novoJogo = new JMenuItem("Novo Jogo");
     JMenuItem viewRanking = new JMenuItem("Ranking");
+
+    Jogo jogo = new Jogo();
 
     private Player player;
     private Dificuldade dificuldade;
@@ -115,12 +118,12 @@ public class GUI extends JFrame implements Listener {
         painel.add(cbDificuldade);
         painel.setBackground(Color.lightGray);
 
-        painelInicial = new PainelInicial();
-        cp.add(painelInicial, BorderLayout.CENTER);
+        cp.add(painel, BorderLayout.NORTH);
+        cp.add(painelCartas, BorderLayout.CENTER);
 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
-        setVisible(true);
+//        setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -131,96 +134,6 @@ public class GUI extends JFrame implements Listener {
 
     }
 
-//    public JPanel geraCenario(JButton[][] vBtn, int nLinha, int nColuna) {
-//        JPanel panel = new JPanel();
-//        GridLayout layout = new GridLayout(nLinha, nColuna);
-//        panel.setLayout(layout);
-//        for (int i = 0; i < nLinha; i++) {
-//            for (int j = 0; j < nColuna; j++) {
-//                // System.out.println("i: " + i + " j: " + j);
-//                vBtn[i][j].addActionListener(this);
-//                panel.add(vBtn[i][j]);
-//            }
-//        }
-//        return panel;
-//    }
-//
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//
-//        String action = e.getActionCommand();
-//        String aux[] = action.split("-");//quebra o valor do action, o action passa uma string que contem numero da carta, linha e coluna do matriz
-//        int linha = Integer.parseInt(aux[1]);
-//        int coluna = Integer.parseInt(aux[2]);
-//
-//        Carta c = new Carta();
-//        c.setColuna(coluna);
-//        c.setLinha(linha);
-//        c.setNumCarta(aux[0]);
-//        cartas[qtdeClique] = c;
-//        qtdeClique++;
-//
-//        ImageIcon icone = new ImageIcon(getClass().getResource("/icones/" + aux[0] + ".png"));
-//
-//        vBtn[linha][coluna].setIcon(icone);
-//
-//        if (qtdeClique == 2) {
-//
-//            if (!(cartas[0].getNumCarta().equals(cartas[1].getNumCarta()))) {
-//
-//                try {
-//                    Thread.sleep(1000);// nao esta funcionando corretamente
-//                } catch (InterruptedException e2) {
-//                    // TODO Auto-generated catch block
-//                    e2.printStackTrace();
-//                }
-//
-//                // retornas as cartas no estado inicial
-//                ImageIcon def = new ImageIcon(getClass().getResource(
-//                        "/icones/default.png"));
-////				vBtn[cartas[0].getLinha()][cartas[0].getColuna()].setIcon(def);
-////				vBtn[cartas[1].getLinha()][cartas[1].getColuna()].setIcon(def);
-//                System.out.println("Errou");
-//
-//            } else if (cartas[0].getNumCarta().equals(cartas[1].getNumCarta())) {
-//                // contabiliza o ponto de acerto
-//                qtdeAcertos++;
-//                System.out.println("Acertou");
-//                vBtn[cartas[0].getLinha()][cartas[0].getColuna()]
-//                        .setEnabled(false);
-//                vBtn[cartas[1].getLinha()][cartas[1].getColuna()]
-//                        .setEnabled(false);
-//
-//            }
-//            cartas = new Carta[2];
-//            qtdeClique = 0;
-//            // delay1s();
-//        }
-////		System.out.println("atdeA: " + qtdeAcertos + " tam btn"+ ((nLinhas * nColunas) / 2));
-//        if (qtdeAcertos == ((dificuldade.getnLinhas() * dificuldade.getnColunas()) / 2)) {
-//            System.out.println("Fim de jogo");
-////			return;
-//        }
-//
-//    }
-    @Override
-    public void dadoTransmitido(Object dado, String tipo) {
+  
 
-        String nick = null;
-        Player p = null;
-        if (tipo.equals("nick")) {
-            nick = String.valueOf(dado);
-            cp.add(painel, BorderLayout.NORTH);
-            cp.add(painelCartas, BorderLayout.CENTER);
-        } else if (tipo.equals("player")) {
-            p = (Player) dado;
-        }
-
-        
-        p.setNome(nick);
-
-        Persistencia persist = new Persistencia();
-        persist.gravaPlayer(p);
-
-    }
 }

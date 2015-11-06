@@ -1,6 +1,6 @@
 package Jogo;
 
-import java.util.ArrayList;
+import Cenario.GUI2;
 
 /**
  *
@@ -12,7 +12,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Player p = new Player();
+//        Player p = new Player();
         //		Persistencia per= new Persistencia();
         //		Score s=new Score();
         //		s.setAcertoConsecutivo(5);
@@ -29,5 +29,7 @@ public class Main {
         //		s.setTempo(10);
         ////		per.gravaPlayer(p);
         //	//	Jogo j = new Jogo();
+        GUI2 g = new GUI2();
+//        g.setVisible(true);
     }
 }

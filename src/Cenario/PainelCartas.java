@@ -2,9 +2,11 @@ package Cenario;
 
 import Jogo.Carta;
 import Jogo.Dificuldade;
+import Jogo.Jogo;
 import Jogo.Persistencia;
 import Jogo.Player;
 import Jogo.Score;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -15,6 +17,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 /**
  *
@@ -32,15 +35,20 @@ public class PainelCartas extends JPanel implements ActionListener {
     private Dificuldade d;
     ArrayList<Integer> numeros;
     Score s = new Score();
-    private int acertosConsecutivos = 0;
+    private int qtdeAcertos = 0;
     private long start;
     private long finish;
-    
+
+    private Jogo jogo = new Jogo();
+    private Player p = new Player();
+
+    Timer t1;
+
     Listener listener = null;
 
     public PainelCartas(Dificuldade d) {
         this.d = d;
-        System.out.println("d" + d.getnColunas() + "  li " + d.getnLinhas());
+//        System.out.println("d" + d.getnColunas() + "  li " + d.getnLinhas());
 
         vBtn = d.geraVetorJButton();
         JButton btn = new JButton();
@@ -54,7 +62,9 @@ public class PainelCartas extends JPanel implements ActionListener {
             }
         }
         setBackground(Color.BLUE);
-        
+
+        repaint();
+
         start = System.currentTimeMillis();
 
     }
@@ -72,32 +82,31 @@ public class PainelCartas extends JPanel implements ActionListener {
         c.setNumCarta(aux[0]);
         cartas[qtdeClique] = c;
         qtdeClique++;
-        s.addNumTentativas();
 
         ImageIcon icone = new ImageIcon(getClass().getResource("/icones/" + aux[0] + ".png"));
+        this.repaint();
 
         vBtn[linha][coluna].setIcon(icone);
 
         if (qtdeClique == 2) {
+            s.addNumTentativas();
 
             if (!(cartas[0].getNumCarta().equals(cartas[1].getNumCarta()))) {
 
-                try {
-                    Thread.sleep(1000);// nao esta funcionando corretamente
-                } catch (InterruptedException e2) {
-                    // TODO Auto-generated catch block
-                    e2.printStackTrace();
-                }
+                t1.start();
+                repaint();
 
                 s.setAcertoConsecutivo(0);
-                
+
                 vBtn[cartas[0].getLinha()][cartas[0].getColuna()].setIcon(null);
                 vBtn[cartas[1].getLinha()][cartas[1].getColuna()].setIcon(null);
                 System.out.println("Errou");
+                this.repaint();
 
             } else if (cartas[0].getNumCarta().equals(cartas[1].getNumCarta())) {
                 // contabiliza o ponto de acerto
                 s.addAcertoConsecutivo();
+                qtdeAcertos++;
                 System.out.println("Acertou");
                 vBtn[cartas[0].getLinha()][cartas[0].getColuna()]
                         .setEnabled(false);
@@ -108,23 +117,39 @@ public class PainelCartas extends JPanel implements ActionListener {
             cartas = new Carta[2];
             qtdeClique = 0;
         }
-        if (s.getNumTentativas() == ((d.getnLinhas() * d.getnColunas()) / 2)) {
-            Player p = new Player();
+        if (qtdeAcertos == ((d.getnLinhas() * d.getnColunas())) / 2) {
             finish = System.currentTimeMillis();
             long tempo = ((finish - start) / 1000);
             s.setTempo((int) tempo);
-            float pontuacao = p.getScore().calcScore();
+            float pontuacao = s.calcScore();
+            System.out.println("POntuaçao: " + pontuacao);
             s.setPontos(pontuacao);
             p.setScore(s);
-            System.out.println("Score: Tenta " + s.getNumTentativas() + " N Acerto" + s.getAcertoConsecutivo() + " Pontos: " + s.getPontos() + " Tempo: " + s.getTempo());
+
+            int resposta = JOptionPane.showConfirmDialog(null, "Fim de jogo! \n Sua pontuação é: " + pontuacao, "Score", JOptionPane.YES_NO_OPTION);
+
             
-            JOptionPane.showMessageDialog(this, "Fim de jogo! \n sua pontuação é: " + pontuacao);
-            listener.dadoTransmitido(p, "player");//passar o Player
+            
+            if (resposta == JOptionPane.YES_OPTION) {
+                String nick = JOptionPane.showInputDialog(this, "Digite seu nick: ");
+                Persistencia persist = new Persistencia();
+                p.setNome(nick);
+                jogo.setPlayer(p);
+                jogo.setDificuldade(d);
+                persist.gravaPlayer(jogo);
+                
+            } 
+            
+            Listener l = null;
+            l.fimJogo();
+//            resposta = JOptionPane.showConfirmDialog(null, "Fim de jogo! \n Sua pontuação é: " + pontuacao, "Score", JOptionPane.YES_NO_OPTION);
+                
+//                this.validate();
+//            setVisible(false);
             
         }
 
-    }
 
-   
+    }
 
 }

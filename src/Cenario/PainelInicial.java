@@ -17,13 +17,14 @@ import javax.swing.JTextField;
  * @author Leonardo Baiser <lpbaiser@gmail.com>
  * @since 05/11/2015
  */
-public class PainelInicial extends JPanel{
+public class PainelInicial extends JPanel {
 
     JTextField txtNick = new JTextField(10);
     JButton btnOK = new JButton("OK");
     GroupLayout layout = new GroupLayout(this);
 
     Listener listener = null;
+    String nick = null;
 
     public PainelInicial() {
         setSize(200, 100);
@@ -33,24 +34,21 @@ public class PainelInicial extends JPanel{
                 .addComponent(new JLabel("Nick: "))
                 .addComponent(txtNick)
                 .addComponent(btnOK)
-                
         );
-        
-        
-        
+
         btnOK.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                    listener.dadoTransmitido(txtNick.getText(), "nick");
-                    txtNick.setText(null);
-                    setVisible(false);
+                nick = txtNick.getText();
+                txtNick.setText(null);
+                setVisible(false);
             }
         });
 
+        
+        
+
     }
 
-    public void setListener(Listener listener) {
-        this.listener = listener;
-    }
 }

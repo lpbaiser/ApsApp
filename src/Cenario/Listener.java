@@ -1,5 +1,7 @@
 package Cenario;
 
+import Jogo.Jogo;
+
 /**
  *
  * @author Leonardo Baiser <lpbaiser@gmail.com>
@@ -7,6 +9,7 @@ package Cenario;
  */
 public interface Listener {
     
-    void dadoTransmitido(Object dado, String tipo);
+//    void dadoTransmitido(Object dado, String tipo);
+    void fimJogo();
 
 }

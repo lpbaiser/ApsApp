@@ -32,6 +32,8 @@ public class Player {
     public void setPontos(float pontos) {
         this.score.setScore(pontos);
     }
+    
+  
 
     public ArrayList<Jogo>[] ranking() {
         Persistencia p = new Persistencia();
