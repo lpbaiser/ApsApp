@@ -6,6 +6,7 @@ import Jogo.Jogo;
 import Jogo.Persistencia;
 import Jogo.Player;
 import Jogo.Score;
+import Jogo.Som;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -15,6 +16,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -30,9 +32,9 @@ import javax.swing.WindowConstants;
 /**
  *
  * @author Leonardo Baiser <lpbaiser@gmail.com>
- * @since 
+ * @since
  */
-public class GUI2 extends JFrame implements ActionListener{
+public class GUI2 extends JFrame implements ActionListener {
 
     Container cp = new Container();
     JPanel painel = new JPanel();
@@ -46,19 +48,22 @@ public class GUI2 extends JFrame implements ActionListener{
     private Jogo jogo = new Jogo();
     private Player player = new Player();
     private Score score = new Score();
+    private Som som = new Som();
+    Random gerador = new Random();
+    int n;
     private Dificuldade dificuldade;
     ArrayList<Integer> numeros;
     JButton[][] vBtn;
     JComboBox cbDificuldade = new JComboBox();
-    
+
     private Carta cartas[] = new Carta[2];
-     private int qtdeAcertos = 0;
-     private int qtdeClique = 0;
-    
+    private int qtdeAcertos = 0;
+    private int qtdeClique = 0;
+
     private long start;
     private long finish;
-    
-    public GUI2(){
+
+    public GUI2() {
         setTitle("JOGO DA MEMORIA");
         setJMenuBar(menuBar);
         menuBar.add(jogoMenu);
@@ -75,7 +80,6 @@ public class GUI2 extends JFrame implements ActionListener{
         cp.setLayout(new BorderLayout());
 
         dificuldade = new Dificuldade(12);
-        
 
         cbDificuldade.addActionListener(new ActionListener() {
 
@@ -128,7 +132,7 @@ public class GUI2 extends JFrame implements ActionListener{
         cp.add(painel, BorderLayout.NORTH);
         painelCartas(dificuldade);
         cp.add(painelCartas(dificuldade), BorderLayout.CENTER);
-        
+
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
         setVisible(true);
@@ -140,11 +144,10 @@ public class GUI2 extends JFrame implements ActionListener{
             }
         });
 
-    
-        
     }
-    
-    public JPanel painelCartas(Dificuldade d){
+
+    public JPanel painelCartas(Dificuldade d) {
+
         JPanel painelCartas = new JPanel();
         vBtn = d.geraVetorJButton();
         JButton btn = new JButton();
@@ -160,14 +163,13 @@ public class GUI2 extends JFrame implements ActionListener{
         setBackground(Color.BLUE);
 
 //        repaint();
-
         start = System.currentTimeMillis();
         return painelCartas;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        
+
         String action = e.getActionCommand();
         String aux[] = action.split("-");//quebra o valor do action, o action passa uma string que contem numero da carta, linha e coluna do matriz
         int linha = Integer.parseInt(aux[1]);
@@ -187,12 +189,15 @@ public class GUI2 extends JFrame implements ActionListener{
 
         if (qtdeClique == 2) {
             score.addNumTentativas();
+            n = gerador.nextInt(3);
 
             if (!(cartas[0].getNumCarta().equals(cartas[1].getNumCarta()))) {
 
+                if (n == 1) {
+                    som.music("Errou");
+                }
 //                t1.start();
 //                repaint();
-
                 score.setAcertoConsecutivo(0);
 
                 vBtn[cartas[0].getLinha()][cartas[0].getColuna()].setIcon(null);
@@ -204,6 +209,15 @@ public class GUI2 extends JFrame implements ActionListener{
                 // contabiliza o ponto de acerto
                 score.addAcertoConsecutivo();
                 qtdeAcertos++;
+                 //Gera um valor random para ativar um som 
+                //O valor random é para nao ativar o som a todo momento
+
+                if (n == 1) {
+                    som.music("Acerto");
+                } else if (score.getAcertoConsecutivo() == 3) {
+                    som.music("PegandoFogo");
+                }
+
                 System.out.println("Acertou");
                 vBtn[cartas[0].getLinha()][cartas[0].getColuna()]
                         .setEnabled(false);
@@ -225,8 +239,6 @@ public class GUI2 extends JFrame implements ActionListener{
 
             int resposta = JOptionPane.showConfirmDialog(null, "Fim de jogo! \n Sua pontuação é: " + pontuacao, "Score", JOptionPane.YES_NO_OPTION);
 
-            
-            
             if (resposta == JOptionPane.YES_OPTION) {
                 String nick = JOptionPane.showInputDialog(this, "Digite seu nick: ");
                 Persistencia persist = new Persistencia();
@@ -234,12 +246,11 @@ public class GUI2 extends JFrame implements ActionListener{
                 jogo.setPlayer(player);
                 jogo.setDificuldade(dificuldade);
                 persist.gravaPlayer(jogo);
-                
-            } 
-            
+
+            }
+
+        }
+
     }
-    
-    }
-        
-    
+
 }

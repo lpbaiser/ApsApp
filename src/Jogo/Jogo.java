@@ -79,20 +79,30 @@ public class Jogo {
         this.vBtn = vBtn;
     }
     
+    
+    /* Método utilizado para mostrar o ranking dos jogadores
+        separados pela dificuldade na hora de jogar
+    */
     public ArrayList<ArrayList<Jogo>> ranking() {
         Persistencia p = new Persistencia();
+        /*  Um ArrayList de ArrayList recebe o retorno da função 
+            lista que retorna uma ArrayList com 3 arrayLists
+            cada posição representando certa dificuldade(12,24,36)
+        */
         ArrayList<ArrayList<Jogo>> jog = p.lista();
-        ArrayList<Jogo> jogo12 = ordena(jog.get(0));
+        ArrayList<Jogo> jogo12 = ordena(jog.get(0));//O ArrayList jogo chama o metodo ordena, para todas dificuldades
         ArrayList<Jogo> jogo24 = ordena(jog.get(1));
         ArrayList<Jogo> jogo36 = ordena(jog.get(2));
         ArrayList<ArrayList<Jogo>> rank = new ArrayList<>();
         rank.add(jogo12);
         rank.add(jogo24);
         rank.add(jogo36);
-        return rank;
+        return rank;//o rank é retornado com todas os players ordenados em suas dificuldades
 
     }
-
+    
+//  Metodo ordena, responsavel por ordernar um arrayList(utilizado metodo Bubble sort)
+//  Ordena os players por pontuação    
     public ArrayList<Jogo> ordena(ArrayList<Jogo> jogo) {
         for (int i = jogo.size(); i >= 1; i--) {
             for (int j = 1; j < i; j++) {

@@ -7,12 +7,13 @@ import Jogo.Persistencia;
 import Jogo.Player;
 import Jogo.Score;
 import java.awt.BorderLayout;
+import Jogo.Som;
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -43,6 +44,7 @@ public class PainelCartas extends JPanel implements ActionListener {
     private Player p = new Player();
 
     Timer t1;
+    private Som som;
 
     Listener listener = null;
 
@@ -63,7 +65,6 @@ public class PainelCartas extends JPanel implements ActionListener {
         }
         setBackground(Color.BLUE);
 
-        repaint();
 
         start = System.currentTimeMillis();
 
@@ -71,6 +72,7 @@ public class PainelCartas extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        som = new Som();
         String action = e.getActionCommand();
         String aux[] = action.split("-");//quebra o valor do action, o action passa uma string que contem numero da carta, linha e coluna do matriz
         int linha = Integer.parseInt(aux[1]);
@@ -91,10 +93,23 @@ public class PainelCartas extends JPanel implements ActionListener {
         if (qtdeClique == 2) {
             s.addNumTentativas();
 
+            Random gerador = new Random();
+            int n;
             if (!(cartas[0].getNumCarta().equals(cartas[1].getNumCarta()))) {
 
                 t1.start();
                 repaint();
+                //Gera um valor random para ativar um som 
+                     n = gerador.nextInt(5);
+                     if(n==2){
+                         som.music("Errou");
+                     }
+                try {
+                    Thread.sleep(1000);// nao esta funcionando corretamente
+                } catch (InterruptedException e2) {
+                    // TODO Auto-generated catch block
+                    e2.printStackTrace();
+                }
 
                 s.setAcertoConsecutivo(0);
 
@@ -104,9 +119,18 @@ public class PainelCartas extends JPanel implements ActionListener {
                 this.repaint();
 
             } else if (cartas[0].getNumCarta().equals(cartas[1].getNumCarta())) {
+                //Gera um valor random para ativar um som 
+                //O valor random é para nao ativar o som a todo momento
+                n = gerador.nextInt(3);
+                if (n == 1) {
+                    som.music("Acerto");
+                }
                 // contabiliza o ponto de acerto
                 s.addAcertoConsecutivo();
                 qtdeAcertos++;
+                if (s.getAcertoConsecutivo() == 3) {
+                    som.music("PegandoFogo");
+                }
                 System.out.println("Acertou");
                 vBtn[cartas[0].getLinha()][cartas[0].getColuna()]
                         .setEnabled(false);
@@ -147,6 +171,11 @@ public class PainelCartas extends JPanel implements ActionListener {
 //                this.validate();
 //            setVisible(false);
             
+            System.out.println("Score: Tenta " + s.getNumTentativas() + " N Acerto" + s.getAcertoConsecutivo() + " Pontos: " + s.getPontos() + " Tempo: " + s.getTempo());
+
+            JOptionPane.showMessageDialog(this, "Fim de jogo! \n sua pontuação é: " + pontuacao);
+//            listener.dadoTransmitido(p, "player");//passar o Player
+
         }
 
 

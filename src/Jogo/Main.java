@@ -1,5 +1,6 @@
 package Jogo;
 
+import Cenario.GUI;
 import Cenario.GUI2;
 
 /**
@@ -31,7 +32,6 @@ public class Main {
         //	//	Jogo j = new Jogo();
      GUI2 g = new GUI2();
 //        g.setVisible(true);
-
 
     }
 }
