@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-
+        
         Player p = new Player();
         //		Persistencia per= new Persistencia();
         //		Score s=new Score();
@@ -29,5 +29,8 @@ public class Main {
         //		s.setTempo(10);
         ////		per.gravaPlayer(p);
         //	//	Jogo j = new Jogo();
+
+       Som s = new Som();
+       s.music("Acerto");
     }
 }
