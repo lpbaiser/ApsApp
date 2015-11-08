@@ -44,7 +44,7 @@ public class Score {
 	 * Calcula o score de um jogo
 	 */
 	public float calcScore() {
-		pontos = (this.tempo / this.numTentativas)* (this.acertoConsecutivo);
+		pontos = ((this.tempo / this.numTentativas)* (this.acertoConsecutivo)*1000);
 		return pontos;
 	}
 	
