@@ -10,6 +10,7 @@ import Jogo.Som;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +18,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -27,6 +29,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
 /**
@@ -38,13 +41,21 @@ public class GUI2 extends JFrame implements ActionListener {
 
     Container cp = new Container();
     JPanel painel = new JPanel();
-    PainelCartas painelCartas;
-    PainelInicial painelInicial;
     JMenuBar menuBar = new JMenuBar();
     JMenu jogoMenu = new JMenu("Jogo");
     JMenuItem novoJogo = new JMenuItem("Novo Jogo");
     JMenuItem viewRanking = new JMenuItem("Ranking");
 
+    //Painel Inicial
+    JPanel painelInicial;
+    JButton btnOk = new JButton("Iniciar Jogo");
+    JTextField txtNick = new JTextField(10);
+    //--
+
+    //JPanel Cartas
+    JPanel painelCartas;
+    //
+    
     private Jogo jogo = new Jogo();
     private Player player = new Player();
     private Score score = new Score();
@@ -80,6 +91,7 @@ public class GUI2 extends JFrame implements ActionListener {
         cp.setLayout(new BorderLayout());
 
         dificuldade = new Dificuldade(12);
+        painelCartas = painelCartas(dificuldade);
 
         cbDificuldade.addActionListener(new ActionListener() {
 
@@ -118,10 +130,10 @@ public class GUI2 extends JFrame implements ActionListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                cp.remove(painelCartas);
-                painelCartas = new PainelCartas(dificuldade);
-                cp.add(painelCartas, BorderLayout.CENTER);
-                cp.validate(); //Atualiza o Painel
+//                cp.remove(painelCartas(d));
+//                painelCartas = new PainelCartas(dificuldade);
+//                cp.add(painelCartas, BorderLayout.CENTER);
+//                cp.validate(); //Atualiza o Painel
             }
         });
 
@@ -129,9 +141,10 @@ public class GUI2 extends JFrame implements ActionListener {
         painel.add(cbDificuldade);
         painel.setBackground(Color.lightGray);
 
-        cp.add(painel, BorderLayout.NORTH);
-        painelCartas(dificuldade);
-        cp.add(painelCartas(dificuldade), BorderLayout.CENTER);
+//        cp.add(painel, BorderLayout.NORTH);
+//        cp.add(painelCartas, BorderLayout.CENTER);
+        painelInicial = painelInicial();
+        cp.add(painelInicial);
 
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
 
@@ -160,11 +173,32 @@ public class GUI2 extends JFrame implements ActionListener {
                 painelCartas.add(btn);
             }
         }
-        setBackground(Color.BLUE);
+        painelCartas.setBackground(Color.BLUE);
 
-//        repaint();
         start = System.currentTimeMillis();
         return painelCartas;
+    }
+
+    public JPanel painelInicial() {
+        JPanel painelIncial = new JPanel();
+
+//        BorderLayout layoutInicial = new BorderLayout();
+//        painelIncial.setLayout(layoutInicial);
+        
+        JPanel centro = new JPanel();
+        FlowLayout layout = new FlowLayout(FlowLayout.CENTER);
+                
+        centro.setLayout(layout);
+
+       centro.add(new JLabel("Digite um nick:"));
+       centro.add(txtNick);
+       
+       centro.setBackground(Color.red);
+        
+       
+        painelIncial.add(centro, BorderLayout.CENTER);
+
+        return painelIncial;
     }
 
     @Override
@@ -209,7 +243,7 @@ public class GUI2 extends JFrame implements ActionListener {
                 // contabiliza o ponto de acerto
                 score.addAcertoConsecutivo();
                 qtdeAcertos++;
-                 //Gera um valor random para ativar um som 
+                //Gera um valor random para ativar um som 
                 //O valor random é para nao ativar o som a todo momento
 
                 if (n == 1) {
