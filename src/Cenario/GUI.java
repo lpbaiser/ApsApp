@@ -116,9 +116,9 @@ public class GUI extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PainelListaRanking painelRanking = new PainelListaRanking();
-                painelInicial.setVisible(false);
-                cp.add(painelRanking, BorderLayout.CENTER);
-                cp.validate();
+                painelRanking.setVisible(true);
+//                cp.add(painelRanking, BorderLayout.CENTER);
+//                cp.validate();
 
             }
         });
@@ -186,6 +186,7 @@ public class GUI extends JFrame implements ActionListener {
                 btn = vBtn[i][j];
                 btn.requestFocus(false);
                 btn.addActionListener(this);
+                
                 painelCartas.add(btn);
             }
         }

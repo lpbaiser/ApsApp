@@ -9,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -21,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Leonardo Baiser <lpbaiser@gmail.com>
  * @since 04/11/2015
  */
-public class PainelListaRanking extends JPanel {
+public class PainelListaRanking extends JFrame {
 
     Player player = new Player();
     Jogo jogo = new Jogo();
@@ -37,8 +38,12 @@ public class PainelListaRanking extends JPanel {
     JPanel dificuldade3;
 //    GridLayout layout = new GridLayout(10, 1);
     FlowLayout layout = new FlowLayout(FlowLayout.CENTER);
+    
+    JPanel painel = new JPanel();
 
     public PainelListaRanking() {
+        
+        setSize(800, 600);
 
         ranking = jogo.ranking();
         
@@ -124,9 +129,11 @@ public class PainelListaRanking extends JPanel {
         dificuldade3.add(scrollPane);
         dificuldade3.add(btnFechar);
         
-        this.add(dificuldade1);
-        this.add(dificuldade2);
-        this.add(dificuldade3);
+        painel.add(dificuldade1);
+        painel.add(dificuldade2);
+        painel.add(dificuldade3);
+        
+        this.add(painel);
 
         btnFechar.addActionListener(new ActionListener() {
 
