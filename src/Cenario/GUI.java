@@ -99,7 +99,7 @@ public class GUI extends JFrame implements ActionListener {
 
         novoJogo.setEnabled(false);
         
-        t = new Timer(1000, taskPerformer);
+        t = new Timer(600, taskPerformer);
 
         cbDificuldade.addActionListener(new ActionListener() {
 
@@ -349,5 +349,9 @@ public class GUI extends JFrame implements ActionListener {
             vBtn[cartas[1].getLinha()][cartas[1].getColuna()].setEnabled(true);
         }
     };
+    
+    public static void main(String[] args) {
+        new GUI();
+    }
 
 }
