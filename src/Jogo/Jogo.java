@@ -34,9 +34,6 @@ public class Jogo {
     public Jogo() {
 	
 
-	//gui = new GUI();
-
-	// cenario = new Cenario();
     }
 
     public Player getPlayer() {
