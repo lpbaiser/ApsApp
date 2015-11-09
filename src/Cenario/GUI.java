@@ -138,11 +138,12 @@ public class GUI extends JFrame implements ActionListener {
                 if (txtNick.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(rootPane, "Digite um nick!");
                 } else {
-                    novoJogo.setEnabled(false);
+                    novoJogo.setEnabled(true);
                     novoJogo(0);
                     player.setNome(txtNick.getText());
                     painelInicial.setVisible(false);
                     cp.add(painelCartas);
+                    
                     
                 }
             }
