@@ -27,7 +27,7 @@ public class Persistencia {
     }
 
     //Método que lista todos os players de acordo com a dificuldade escolhida
-    //Utilizado para fazer o rank de cada dificuldade(O metodo listar retorna desordenado)
+    //Utilizado para fazer o rank de cada dificuldade(O metodo lista retorna desordenado)
 
     public ArrayList<ArrayList<Jogo>> lista() {
         ArrayList<ArrayList<Jogo>> retorno = new ArrayList<>();
@@ -54,6 +54,7 @@ public class Persistencia {
                 s.setAcertoConsecutivo(Integer.parseInt(arquivo[4]));
                 novo.setScore(s);
                 j.setPlayer(novo);
+                
                 j.setDif(Integer.parseInt(arquivo[5]));
                 /*Adciona os jogadores nos vetores de acordo 
                  com a dificuldade que foi escolhida*/

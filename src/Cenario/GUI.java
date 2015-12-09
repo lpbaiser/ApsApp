@@ -99,7 +99,7 @@ public class GUI extends JFrame implements ActionListener {
 
         novoJogo.setEnabled(false);
         
-        t = new Timer(1000, taskPerformer);
+        t = new Timer(600, taskPerformer);
 
         cbDificuldade.addActionListener(new ActionListener() {
 
@@ -116,9 +116,9 @@ public class GUI extends JFrame implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 PainelListaRanking painelRanking = new PainelListaRanking();
-                painelInicial.setVisible(false);
-                cp.add(painelRanking, BorderLayout.CENTER);
-                cp.validate();
+                painelRanking.setVisible(true);
+//                cp.add(painelRanking, BorderLayout.CENTER);
+//                cp.validate();
 
             }
         });
@@ -138,11 +138,12 @@ public class GUI extends JFrame implements ActionListener {
                 if (txtNick.getText().isEmpty()) {
                     JOptionPane.showMessageDialog(rootPane, "Digite um nick!");
                 } else {
-                    novoJogo.setEnabled(false);
+                    novoJogo.setEnabled(true);
                     novoJogo(0);
                     player.setNome(txtNick.getText());
                     painelInicial.setVisible(false);
                     cp.add(painelCartas);
+                    
                     
                 }
             }
@@ -185,6 +186,7 @@ public class GUI extends JFrame implements ActionListener {
                 btn = vBtn[i][j];
                 btn.requestFocus(false);
                 btn.addActionListener(this);
+                
                 painelCartas.add(btn);
             }
         }
@@ -348,5 +350,9 @@ public class GUI extends JFrame implements ActionListener {
             vBtn[cartas[1].getLinha()][cartas[1].getColuna()].setEnabled(true);
         }
     };
+    
+    public static void main(String[] args) {
+        new GUI();
+    }
 
 }
