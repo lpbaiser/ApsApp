@@ -1,7 +1,7 @@
-package Cenario;
+package View;
 
-import Jogo.Jogo;
-import Jogo.Player;
+import Control.Jogo;
+import Control.Player;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
@@ -22,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
  * @author Leonardo Baiser <lpbaiser@gmail.com>
  * @since 04/11/2015
  */
-public class PainelListaRanking extends JFrame {
+public class FrameListaRanking extends JFrame {
 
     Player player = new Player();
     Jogo jogo = new Jogo();
@@ -40,7 +40,7 @@ public class PainelListaRanking extends JFrame {
     
     JPanel painel = new JPanel();
 
-    public PainelListaRanking() {
+    public FrameListaRanking() {
         
         setSize(800, 600);
 

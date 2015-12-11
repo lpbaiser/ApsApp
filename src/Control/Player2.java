@@ -1,4 +1,4 @@
-package Jogo;
+package Control;
 
 import java.util.ArrayList;
 
@@ -8,10 +8,10 @@ import java.util.ArrayList;
  * @version 1.0
  * @since 19/10/2015
  */
-public class Player {
+public class Player2 {
 
     private String nome;
-    private Score score;
+    private Score2 score;
 
     public String getNome() {
         return nome;
@@ -21,11 +21,11 @@ public class Player {
         this.nome = nome;
     }
 
-    public Score getScore() {
+    public Score2 getScore() {
         return score;
     }
 
-    public void setScore(Score score) {
+    public void setScore(Score2 score) {
         this.score = score;
     }
 

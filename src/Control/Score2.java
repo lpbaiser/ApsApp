@@ -1,4 +1,4 @@
-package Jogo;
+package Control;
 
 /**
 *
@@ -9,7 +9,7 @@ package Jogo;
 
 import java.util.ArrayList;
 
-public class Score {
+public class Score2 {
 
 	private int tempo = 0;
 	private int numTentativas = 0;

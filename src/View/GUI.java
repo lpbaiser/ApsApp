@@ -1,12 +1,13 @@
-package Cenario;
+package View;
 
-import Jogo.Carta;
-import Jogo.Dificuldade;
-import Jogo.Jogo;
-import Jogo.Persistencia;
-import Jogo.Player;
-import Jogo.Score;
-import Jogo.Som;
+import Control.Carta;
+import Model.Dificuldade;
+import Control.Jogo;
+import Model.Persistencia;
+import Control.Player;
+import Control.Score;
+import Control.ScorePK;
+import Model.Som;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
@@ -59,6 +60,7 @@ public class GUI extends JFrame implements ActionListener {
 
     private Jogo jogo = new Jogo();
     private Player player = new Player();
+    private ScorePK scorePK = new ScorePK();
     private Score score = new Score();
     private Som som = new Som();
     Random gerador = new Random();
@@ -98,7 +100,7 @@ public class GUI extends JFrame implements ActionListener {
         dificuldade = 0;
 
         novoJogo.setEnabled(false);
-        
+
         t = new Timer(600, taskPerformer);
 
         cbDificuldade.addActionListener(new ActionListener() {
@@ -115,7 +117,7 @@ public class GUI extends JFrame implements ActionListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                PainelListaRanking painelRanking = new PainelListaRanking();
+                FrameListaRanking painelRanking = new FrameListaRanking();
                 painelRanking.setVisible(true);
 //                cp.add(painelRanking, BorderLayout.CENTER);
 //                cp.validate();
@@ -140,11 +142,10 @@ public class GUI extends JFrame implements ActionListener {
                 } else {
                     novoJogo.setEnabled(true);
                     novoJogo(0);
-                    player.setNome(txtNick.getText());
+                    player.setNamePlayer(txtNick.getText());
                     painelInicial.setVisible(false);
                     cp.add(painelCartas);
-                    
-                    
+
                 }
             }
         });
@@ -186,7 +187,7 @@ public class GUI extends JFrame implements ActionListener {
                 btn = vBtn[i][j];
                 btn.requestFocus(false);
                 btn.addActionListener(this);
-                
+
                 painelCartas.add(btn);
             }
         }
@@ -243,6 +244,9 @@ public class GUI extends JFrame implements ActionListener {
 
         }
 
+        jogo.setDificuldade(d);
+        jogo.setPlayer(player);
+
         start = System.currentTimeMillis();
 
         cp.add(painelCartas, BorderLayout.CENTER);
@@ -274,8 +278,9 @@ public class GUI extends JFrame implements ActionListener {
         cp.validate();
 
         if (qtdeClique == 2) {
-            score.addNumTentativas();
-            n = gerador.nextInt(3);
+            scorePK.addNumTentativas();
+            
+            n = gerador.nextInt(3);//random som
 
             if (!(cartas[0].getNumCarta().equals(cartas[1].getNumCarta()))) {
 
@@ -283,21 +288,21 @@ public class GUI extends JFrame implements ActionListener {
                     som.music("Errou");
                 }
 
-                score.setAcertoConsecutivo(0);
+                scorePK.setAcertoConsecutivo(0);
                 System.out.println("Errou");
 
                 t.setRepeats(false);
                 t.start();
             } else if (cartas[0].getNumCarta().equals(cartas[1].getNumCarta())) {
                 // contabiliza o ponto de acerto
-                score.addAcertoConsecutivo();
+                scorePK.addAcertoConsecutivo();
                 qtdeAcertos++;
                 //Gera um valor random para ativar um som 
                 //O valor random é para nao ativar o som a todo momento
 
                 if (n == 1) {
                     som.music("Acerto");
-                } else if (score.getAcertoConsecutivo() == 3) {
+                } else if (scorePK.getAcertoConsecutivo() == 3) {
                     som.music("PegandoFogo");
                 }
 
@@ -311,26 +316,20 @@ public class GUI extends JFrame implements ActionListener {
             }
             qtdeClique = 0;
         }
-        if (qtdeAcertos == ((d.getnLinhas() * d.getnColunas())) / 2) {
-            finish = System.currentTimeMillis();
-            long tempo = ((finish - start) / 1000);
-            score.setTempo((int) tempo);
-            float pontuacao = score.calcScore();
-            System.out.println("POntuaçao: " + pontuacao);
-            score.setPontos(pontuacao);
-            player.setScore(score);
-
+        if (jogo.verificaFimJogo(qtdeAcertos)) {
+            float pontuacao = scorePK.calcScore();
+            scorePK.setPontos(pontuacao);
+            score.setScorePK(scorePK);
             int resposta = JOptionPane.showConfirmDialog(null, "Fim de jogo! \n Sua pontuação é: " + pontuacao + "\nDeseja iniciar um novo jogo?", "Score", JOptionPane.YES_NO_OPTION);
 
             if (resposta == JOptionPane.YES_OPTION) {
                 novoJogo(0);
             }
-            Persistencia persist = new Persistencia();
-            jogo.setPlayer(player);
-            jogo.setDificuldade(d);
-            persist.gravaPlayer(jogo);
+
+            jogo.gravaJogo();
 
         }
+
     }
 
     @Override
@@ -350,7 +349,7 @@ public class GUI extends JFrame implements ActionListener {
             vBtn[cartas[1].getLinha()][cartas[1].getColuna()].setEnabled(true);
         }
     };
-    
+
     public static void main(String[] args) {
         new GUI();
     }
