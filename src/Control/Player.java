@@ -1,23 +1,24 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Control;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * Document: Player
- * @author : Leonardo Baiser <lpbaiser@gmail.com>
- * @since : Dec 10, 2015, 9:55:29 PM
+ *
+ * @author emanuel
  */
 @Entity
 @Table(name = "Player")
@@ -26,34 +27,18 @@ import javax.persistence.Table;
 public class Player implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Basic(optional = false)
-    @Column(name = "idPlayer")
-    private Integer idPlayer;
     @Basic(optional = false)
     @Column(name = "namePlayer")
     private String namePlayer;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPlayer")
-    private List<Score> scoreList;
+    @JoinColumn(name = "idScore", referencedColumnName = "idScore")
+    @ManyToOne(optional = false)
+    private Score idScore;
 
     public Player() {
     }
 
-    public Player(Integer idPlayer) {
-        this.idPlayer = idPlayer;
-    }
-
-    public Player(Integer idPlayer, String namePlayer) {
-        this.idPlayer = idPlayer;
+    public Player(String namePlayer) {
         this.namePlayer = namePlayer;
-    }
-
-    public Integer getIdPlayer() {
-        return idPlayer;
-    }
-
-    public void setIdPlayer(Integer idPlayer) {
-        this.idPlayer = idPlayer;
     }
 
     public String getNamePlayer() {
@@ -64,18 +49,18 @@ public class Player implements Serializable {
         this.namePlayer = namePlayer;
     }
 
-    public List<Score> getScoreList() {
-        return scoreList;
+    public Score getIdScore() {
+        return idScore;
     }
 
-    public void setScoreList(List<Score> scoreList) {
-        this.scoreList = scoreList;
+    public void setIdScore(Score idScore) {
+        this.idScore = idScore;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idPlayer != null ? idPlayer.hashCode() : 0);
+        hash += (namePlayer != null ? namePlayer.hashCode() : 0);
         return hash;
     }
 
@@ -86,7 +71,7 @@ public class Player implements Serializable {
             return false;
         }
         Player other = (Player) object;
-        if ((this.idPlayer == null && other.idPlayer != null) || (this.idPlayer != null && !this.idPlayer.equals(other.idPlayer))) {
+        if ((this.namePlayer == null && other.namePlayer != null) || (this.namePlayer != null && !this.namePlayer.equals(other.namePlayer))) {
             return false;
         }
         return true;
@@ -94,7 +79,7 @@ public class Player implements Serializable {
 
     @Override
     public String toString() {
-        return "Control.Player[ idPlayer=" + idPlayer + " ]";
+        return "Control.Player[ namePlayer=" + namePlayer + " ]";
     }
-
+    
 }

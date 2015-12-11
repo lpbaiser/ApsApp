@@ -1,18 +1,25 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package Control;
 
 import java.io.Serializable;
-import javax.persistence.EmbeddedId;
+import java.util.List;
+import javax.persistence.Basic;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
- * Document: Score
- * @author : Leonardo Baiser <lpbaiser@gmail.com>
- * @since : Dec 10, 2015, 9:55:29 PM
+ *
+ * @author emanuel
  */
 @Entity
 @Table(name = "Score")
@@ -20,43 +27,104 @@ import javax.persistence.Table;
     @NamedQuery(name = "Score.findAll", query = "SELECT s FROM Score s")})
 public class Score implements Serializable {
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected ScorePK scorePK;
-    @JoinColumn(name = "idPlayer", referencedColumnName = "idPlayer")
-    @ManyToOne(optional = false)
-    private Player idPlayer;
+    @Id
+    @Basic(optional = false)
+    @Column(name = "idScore")
+    private Integer idScore;
+    @Basic(optional = false)
+    @Column(name = "dificuldade")
+    private int dificuldade;
+    @Basic(optional = false)
+    @Column(name = "tempo")
+    private int tempo;
+    @Basic(optional = false)
+    @Column(name = "numTentativas")
+    private int numTentativas;
+    @Basic(optional = false)
+    @Column(name = "acertoConsecutivo")
+    private int acertoConsecutivo;
+    @Basic(optional = false)
+    @Column(name = "pontos")
+    private int pontos;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idScore")
+    private List<Player> playerList;
 
     public Score() {
     }
 
-    public Score(ScorePK scorePK) {
-        this.scorePK = scorePK;
+    public Score(Integer idScore) {
+        this.idScore = idScore;
     }
 
-    public Score(int tempo, int numTentativas, int acertoConsecutivo, float pontos) {
-        this.scorePK = new ScorePK(tempo, numTentativas, acertoConsecutivo, pontos);
+    public Score(Integer idScore, int dificuldade, int tempo, int numTentativas, int acertoConsecutivo, int pontos) {
+        this.idScore = idScore;
+        this.dificuldade = dificuldade;
+        this.tempo = tempo;
+        this.numTentativas = numTentativas;
+        this.acertoConsecutivo = acertoConsecutivo;
+        this.pontos = pontos;
     }
 
-    public ScorePK getScorePK() {
-        return scorePK;
+    public Integer getIdScore() {
+        return idScore;
     }
 
-    public void setScorePK(ScorePK scorePK) {
-        this.scorePK = scorePK;
+    public void setIdScore(Integer idScore) {
+        this.idScore = idScore;
     }
 
-    public Player getIdPlayer() {
-        return idPlayer;
+    public int getDificuldade() {
+        return dificuldade;
     }
 
-    public void setIdPlayer(Player idPlayer) {
-        this.idPlayer = idPlayer;
+    public void setDificuldade(int dificuldade) {
+        this.dificuldade = dificuldade;
+    }
+
+    public int getTempo() {
+        return tempo;
+    }
+
+    public void setTempo(int tempo) {
+        this.tempo = tempo;
+    }
+
+    public int getNumTentativas() {
+        return numTentativas;
+    }
+
+    public void setNumTentativas(int numTentativas) {
+        this.numTentativas = numTentativas;
+    }
+
+    public int getAcertoConsecutivo() {
+        return acertoConsecutivo;
+    }
+
+    public void setAcertoConsecutivo(int acertoConsecutivo) {
+        this.acertoConsecutivo = acertoConsecutivo;
+    }
+
+    public int getPontos() {
+        return pontos;
+    }
+
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
+    }
+
+    public List<Player> getPlayerList() {
+        return playerList;
+    }
+
+    public void setPlayerList(List<Player> playerList) {
+        this.playerList = playerList;
     }
 
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (scorePK != null ? scorePK.hashCode() : 0);
+        hash += (idScore != null ? idScore.hashCode() : 0);
         return hash;
     }
 
@@ -67,7 +135,7 @@ public class Score implements Serializable {
             return false;
         }
         Score other = (Score) object;
-        if ((this.scorePK == null && other.scorePK != null) || (this.scorePK != null && !this.scorePK.equals(other.scorePK))) {
+        if ((this.idScore == null && other.idScore != null) || (this.idScore != null && !this.idScore.equals(other.idScore))) {
             return false;
         }
         return true;
@@ -75,7 +143,20 @@ public class Score implements Serializable {
 
     @Override
     public String toString() {
-        return "Control.Score[ scorePK=" + scorePK + " ]";
+        return "Control.Score[ idScore=" + idScore + " ]";
     }
+    
+     public void addNumTentativas(){
+            this.numTentativas ++;
+        }
+        
+        public void addAcertoConsecutivo(){
+            this.acertoConsecutivo++;
+        }
+        public int calcScore() {
+		pontos = (( this.numTentativas)* (this.acertoConsecutivo)*1000)/this.tempo;
+		return pontos;
+	}
 
+    
 }

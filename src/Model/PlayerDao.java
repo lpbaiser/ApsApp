@@ -14,14 +14,25 @@ public class PlayerDao extends GenericDao<Player>{
         super(Player.class);
     }
     
-    public int verificaPlayerExists(int idPlayer){
-        Query q = em.createQuery("SELECT e.idPlayer FROM Player e WHERE e.categoria = :categoria");
-        q.setParameter("idPlayer", idPlayer);
+    public String verificaPlayerExists(String namePlayer){
+        Query q = em.createQuery("SELECT e.namePlayer FROM Player e WHERE e.namePlayer = :namePlayer");
+        q.setParameter("namePlayer", namePlayer);
         
         try{
-            return (int) q.getSingleResult();
+            return (String) q.getSingleResult();
         }catch (Exception ex){
-            return -1;
+            return null;
+        }
+    }
+    
+     public Player getPlayerByScore(int idScore){
+        Query q = em.createQuery("SELECT e FROM Player e WHERE e.idScore.idScore = :idScore");
+        q.setParameter("idScore", idScore);
+        
+        try{
+            return (Player) q.getSingleResult();
+        }catch (Exception ex){
+            return null;
         }
     }
 

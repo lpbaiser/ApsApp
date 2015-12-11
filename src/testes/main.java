@@ -2,7 +2,6 @@ package testes;
 
 import Control.Player;
 import Control.Score;
-import Control.ScorePK;
 import Model.Persistencia;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,23 +16,20 @@ public class main {
 
     public static void main(String[] args) {
         Player p = new Player();
-        p.setNamePlayer("Leonardo");
+        p.setNamePlayer("leozim");
         
-        Score s = new Score();
-        ScorePK  sPk = new ScorePK();
-        sPk.setAcertoConsecutivo(3);
-        sPk.setNumTentativas(10);
-        sPk.setPontos(500);
-        sPk.setTempo(50);
-        s.setScorePK(sPk);
+        Score sPk = new Score();
+       
+        sPk.setAcertoConsecutivo(21);
+        sPk.setNumTentativas(101);
+        sPk.setPontos(52);
+        sPk.setTempo(10);
+      
         
-        List<Score> listScore = new ArrayList<>();
-        listScore.add(s);
-        
-        p.setScoreList(listScore);
+      
         
         Persistencia persist = new Persistencia();
-        persist.gravaPlayerScore(p);
+        persist.gravaPlayerScore(p,sPk);
         
     }
 

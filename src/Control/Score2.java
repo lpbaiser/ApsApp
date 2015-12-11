@@ -67,6 +67,7 @@ public class Score2 {
         public void addAcertoConsecutivo(){
             this.acertoConsecutivo++;
         }
+        
 
 	public ArrayList<String> listaScore() {
 		ArrayList<String> ranking = new ArrayList<>();

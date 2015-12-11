@@ -87,9 +87,9 @@ public class Jogo {
         return false;
     }
     
-    public void gravaJogo(){
+    public void gravaJogo(Score score){
             Persistencia persist = new Persistencia();
-            persist.gravaPlayerScore(player);
+            persist.gravaPlayerScore(player,score);
     }
     
     

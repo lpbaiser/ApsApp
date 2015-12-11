@@ -10,18 +10,22 @@ public class Persistencia {
     PlayerDao playerDao;
     ScoreDao scoreDao;
 
-    public void gravaPlayerScore(Player player) {
+    public void gravaPlayerScore(Player player, Score score) {
 
         playerDao = new PlayerDao();
         scoreDao = new ScoreDao();
 
-        if (player.getIdPlayer() == playerDao.verificaPlayerExists(player.getIdPlayer())) {
+        if (player.getNamePlayer()== playerDao.verificaPlayerExists(player.getNamePlayer())) {
             playerDao.atualizar(player);
         } else {
-            playerDao.inserir(player);
-            for (Score score : player.getScoreList()) {
+                long id=scoreDao.contaScore();
+                int nova = (int)id;
+                nova++;
+                
+                score.setIdScore(nova);
                 scoreDao.inserir(score);
-            }
+                player.setIdScore(score);
+            playerDao.inserir(player);
         }
     }
     
